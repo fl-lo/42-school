@@ -1,9 +1,16 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
+INCLUDE = -I.
 HEADER = ft_printf.h
 
-SRCS = ft_printf.c srcs/ft_putchar.c srcs/ft_putnbr_base.c srcs/ft_putnbr_ptr.c srcs/ft_putnbr_u.c srcs/ft_putnbr.c srcs/ft_putstr.c
+SRCS = ft_printf.c \
+       srcs/ft_putchar.c \
+       srcs/ft_putnbr_base.c \
+       srcs/ft_putnbr_ptr.c \
+       srcs/ft_putnbr_u.c \
+       srcs/ft_putnbr.c \
+       srcs/ft_putstr.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -13,7 +20,7 @@ $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 %.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
