@@ -1,0 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rush03.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nahhhhh <nahhhhh@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/07 11:28:04 by chbrache          #+#    #+#             */
+/*   Updated: 2025/11/16 17:54:33 by nahhhhh          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <unistd.h>
+
+void	ft_putchar(char c);
+
+int	check_ints(int x, int y)
+{
+	int	maxint;
+
+	maxint = 2147483647;
+	if (x <= 0 || y <= 0 || x >= maxint || y >= maxint)
+		return (0);
+	return (1);
+}
+
+void	ft_headers(int col, int row, int x, int y)
+{
+	if (col == 0 && row == 0)
+		ft_putchar('A');
+	else if ((x != 1 && y != 1) && (col == x - 1 && row == y - 1))
+		ft_putchar('C');
+	else if ((col == x - 1 || col == 0) && (row == y - 1 && row != 0))
+		write(1, "A", 1);
+	else if (col == x - 1 && row == 0)
+		write(1, "C", 1);
+	else
+		ft_putchar('B');
+}
+
+void	ft_rest(int col, int x)
+{
+	if (col == 0 || col == x - 1)
+		ft_putchar('B');
+	else
+		ft_putchar(' ');
+}
+
+void	rush(int x, int y)
+{
+	int	col;
+	int	row;
+
+	col = 0;
+	row = 0;
+	if (check_ints(x, y) != 1)
+		return ;
+	while (col < x)
+	{
+		if (row == 0 || row == y - 1)
+			ft_headers(col, row, x, y);
+		else
+			ft_rest(col, x);
+		if (col >= x - 1)
+		{
+			col = 0;
+			row++;
+			ft_putchar('\n');
+		}
+		else
+			col++;
+		if (row >= y)
+			return ;
+	}
+}
